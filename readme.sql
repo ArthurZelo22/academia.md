@@ -101,19 +101,6 @@ JOIN modalidades
 	mod ON im.modalidade_id = mod.id
 WHERE mat.status = 'Ativa';
 
--- Q3
-CREATE VIEW vw_alunos_vip AS
-SELECT 
-    a.nome AS aluno, 
-    COUNT(mat.id) AS total_matriculas, 
-    SUM((im.valor_mensal_aplicado * im.duracao_meses) + im.taxa_adesao) AS total_investido
-FROM alunos a
-JOIN matriculas mat ON a.id = mat.aluno_id
-JOIN itens_matricula im ON mat.id = im.matricula_id
-WHERE mat.status = 'Ativa'
-GROUP BY a.id, a.nome
-HAVING SUM((im.valor_mensal_aplicado * im.duracao_meses) + im.taxa_adesao) > 1000.00;
-
 -- Q4 
 SELECT m.*, p.nome AS plano, p.valor_mensal_base
 FROM modalidades m
